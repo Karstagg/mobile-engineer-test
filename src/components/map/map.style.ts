@@ -75,16 +75,18 @@ export const SelectTextAndroid = styled(Text)`
 
 export const StyledCallout = styled(Callout)`
   width: ${wp(60)}px;
+  height: ${wp(60)}px;
 `;
 
 export const CalloutTitle = styled(Text)`
   font-size: ${hp(3)}px;
+  background-color: tomato;
+  color: white;
   text-align: center;
   margin-bottom: 10px;
 `;
 
 export const CalloutText = styled(Text)`
-  font-size: ${hp(1.5)}px;
   margin-bottom: 10px;
 `;
 
