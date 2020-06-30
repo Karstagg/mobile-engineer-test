@@ -22,7 +22,6 @@ export const useAbqOpenData = () => {
       }
       setIsLoading(false);
     };
-
     fetchData();
   }, [url]);
   return [{data, isLoading, isError}, setFetchURL];
