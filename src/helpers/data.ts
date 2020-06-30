@@ -9,7 +9,11 @@ const isMovie = (feature) => {
 
 export const hashFeatures = (features: Array<Feature>) => {
   return features.reduce((map: FeatureHash, feature: Feature) => {
-    if (isMovie(feature)) {
+    if (
+      isMovie(feature) &&
+      typeof feature.geometry.x === 'number' &&
+      typeof feature.geometry.y === 'number'
+    ) {
       const title = feature.attributes.Title.replace(/[ \t]+$/, '');
       if (map[title]) {
         map[title].push(feature);
