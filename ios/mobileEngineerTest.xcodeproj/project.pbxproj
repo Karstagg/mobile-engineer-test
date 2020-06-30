@@ -161,7 +161,6 @@
 				E5267D663C9E50E6A4BAD6FD /* Pods-mobileEngineerTest-tvOSTests.debug.xcconfig */,
 				D6E9FB9F4305622353398052 /* Pods-mobileEngineerTest-tvOSTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};

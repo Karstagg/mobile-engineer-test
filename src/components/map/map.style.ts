@@ -11,7 +11,7 @@ export const StyledMap = styled(MapView)`
   width: ${wp(100)}px;
 `;
 
-export const MapContainer = styled(View)`
+export const MapContainerLayout = styled(View)`
   height: ${hp(100)}px;
   width: ${wp(100)}px;
   background-color: #ebe3cd;
@@ -41,8 +41,7 @@ export const MapHeader = styled(View)`
   z-index: 100;
   background-color: #ae9e90;
   display: flex;
-  align-content: center;
-  justify-content: center;
+  justify-content: flex-end;
   height: ${hp(12)}px;
   width: ${wp(100)}px;
   box-shadow: 0px 1px 2px;
@@ -53,6 +52,7 @@ export const MapHeaderText = styled(Text)`
   font-weight: 600;
   z-index: 100;
   align-self: center;
+  margin-bottom: 10px;
   color: #fff;
   font-size: ${hp(5)}px;
 `;

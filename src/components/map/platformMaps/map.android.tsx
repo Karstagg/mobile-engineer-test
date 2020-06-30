@@ -7,28 +7,37 @@ import {
   StyledCallout,
   CalloutTitle,
   CalloutText,
-  MapHeader, MapHeaderText,
-} from './map.style';
+  MapHeader,
+  MapHeaderText,
+} from '../map.style';
 import {Marker, PROVIDER_GOOGLE} from 'react-native-maps';
-import {FeatureHash, Region} from '../../helpers/interfaces';
+import {FeatureHash, Region} from '../../../helpers/interfaces';
 import {Picker} from '@react-native-community/picker';
 import {useEffect} from 'react';
-import {useSelect} from './mapHooks';
+import {useSelect} from '../mapHooks';
 
 type Props = {
   initialRegion: Region;
   movies: FeatureHash;
+  loading: boolean;
+  error: boolean;
 };
 
-const AndroidMap: React.FC<Props> = ({initialRegion, movies}) => {
+const Map: React.FC<Props> = ({initialRegion, movies, loading, error}) => {
   const [{locations, selected}, {setSelected, setLocations}] = useSelect();
   useEffect(() => {
+    if (loading) {
+      setSelected('Loading...');
+    }
+    if (error) {
+      setSelected('Error Loading Data');
+    }
     if (movies) {
       const initialTitle = Object.entries(movies)[0][0];
       setSelected(initialTitle);
       setLocations(movies[initialTitle]);
     }
-  }, [movies, setLocations, setSelected]);
+  }, [movies, setLocations, setSelected, loading, error]);
   const handleSelect = (val) => {
     if (val) {
       setSelected(val);
@@ -38,7 +47,7 @@ const AndroidMap: React.FC<Props> = ({initialRegion, movies}) => {
   return (
     <>
       <MapHeader>
-        <MapHeaderText>{selected}</MapHeaderText>
+        <MapHeaderText numberOfLines={1}>{selected}</MapHeaderText>
       </MapHeader>
       <StyledMap
         provider={PROVIDER_GOOGLE}
@@ -94,4 +103,4 @@ const AndroidMap: React.FC<Props> = ({initialRegion, movies}) => {
   );
 };
 
-export default AndroidMap;
+export default Map;

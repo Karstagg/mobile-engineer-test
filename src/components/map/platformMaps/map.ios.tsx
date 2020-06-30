@@ -9,30 +9,38 @@ import {
   CalloutText,
   MapHeader,
   MapHeaderText,
-} from './map.style';
+} from '../map.style';
 import {PROVIDER_GOOGLE, Marker} from 'react-native-maps';
-import {FeatureHash, Region} from '../../helpers/interfaces';
+import {FeatureHash, Region} from '../../../helpers/interfaces';
 import {Picker} from '@react-native-community/picker';
 import {useEffect} from 'react';
-import {useSelect} from './mapHooks';
+import {useSelect} from '../mapHooks';
 
 type Props = {
   initialRegion: Region;
   movies: FeatureHash;
+  loading: boolean;
+  error: boolean;
 };
 
-const IosMap: React.FC<Props> = ({initialRegion, movies}) => {
+const Map: React.FC<Props> = ({initialRegion, movies, loading, error}) => {
   const [
     {locations, selected, isSelectToggled},
     {setSelected, setLocations, toggleSelect},
   ] = useSelect();
   useEffect(() => {
+    if (loading) {
+      setSelected('Loading...');
+    }
+    if (error) {
+      setSelected('Error Loading Data');
+    }
     if (movies) {
       const initialTitle = Object.entries(movies)[0][0];
       setSelected(initialTitle);
       setLocations(movies[initialTitle]);
     }
-  }, [movies, setLocations, setSelected]);
+  }, [movies, setLocations, setSelected, loading, error]);
   const handleSelect = (val) => {
     if (val) {
       setSelected(val);
@@ -44,7 +52,7 @@ const IosMap: React.FC<Props> = ({initialRegion, movies}) => {
       {!isSelectToggled && (
         <>
           <MapHeader>
-            <MapHeaderText>{selected}</MapHeaderText>
+            <MapHeaderText numberOfLines={1}>{selected}</MapHeaderText>
           </MapHeader>
           <StyledMap
             provider={PROVIDER_GOOGLE}
@@ -98,4 +106,4 @@ const IosMap: React.FC<Props> = ({initialRegion, movies}) => {
   );
 };
 
-export default IosMap;
+export default Map;
